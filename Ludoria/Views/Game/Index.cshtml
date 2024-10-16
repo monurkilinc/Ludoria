@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Ludoria.Models.Game>
+@{
+    ViewData["Title"] = "Oyunlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Oyun Incelemeleri</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Oyun Adi</th>
+            <th>Aciklama</th>
+            <th>Türü</th>
+            <th>Gelistirici</th>
+            <th>Fiyat</th>
+            <th>Yayin Tarihi</th>
+            <th>Platform</th>
+            <th>Kategori</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var game in Model)
+        {
+            <tr>
+                <td>@game.Name</td>
+                <td>@game.Description</td>
+                <td>@game.Genre</td>
+                <td>@game.Developer</td>
+                <td>@game.Price.ToString("C")</td>
+                <td>@game.ReleaseDate.ToShortDateString()</td>
+                <td>@game.Platform?.Name</td>
+                <td>@game.Category?.Name</td>
+                <td>
+                    <a href="@Url.Action("Create", "Game")" class="btn btn-success">Yeni Oyun Ekle</a>
+                    <a href="@Url.Action("Edit", "Game", new { id = game.Id })" class="btn btn-primary">Güncelle</a>
+                    <a href="@Url.Action("Delete", "Game", new { id = game.Id })" class="btn btn-danger">Sil</a>
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>
