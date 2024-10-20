@@ -1,6 +1,7 @@
 ﻿@model Ludoria.Models.Game
 
-<form asp-controller="Game" asp-action="Edit" method="post">
+<form asp-action="Edit" enctype="multipart/form-data">
+
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">

@@ -32,7 +32,7 @@
                                 <td>
                                     @if (!string.IsNullOrEmpty(game.ImageURL))
                                     {
-                                        <img src="@game.ImageURL" alt="@game.Name" style="width:100px; height:auto;" />
+                                        <img src="@Url.Content(game.ImageURL)" alt="@game.Name" class="game-thumbnail" />
                                     }
                                     else
                                     {

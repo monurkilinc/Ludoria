@@ -29,7 +29,8 @@ namespace Ludoria.Controllers
 
         public async Task<IActionResult> Create()
         {
-            await PopulateViewBags();
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.Platforms = await _context.Platforms.ToListAsync();
             return View("AddGame");
         }
 
@@ -46,14 +47,12 @@ namespace Ludoria.Controllers
                 if (image != null && image.Length > 0)
                 {
                     game.ImageURL = await SaveImage(image);
+                    Console.WriteLine($"Image saved. URL: {game.ImageURL}");
                 }
-
                 _context.Add(game);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            await PopulateViewBags();
             return View("AddGame", game);
         }
 
@@ -74,7 +73,8 @@ namespace Ludoria.Controllers
                 return NotFound();
             }
 
-            await PopulateViewBags();
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.Platforms = await _context.Platforms.ToListAsync();
             return View("EditGame", game);
         }
 
@@ -93,11 +93,10 @@ namespace Ludoria.Controllers
                     if (image != null && image.Length > 0)
                     {
                         game.ImageURL = await SaveImage(image);
+                        Console.WriteLine($"Image updated. URL: {game.ImageURL}");
                     }
-
                     _context.Update(game);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -110,8 +109,8 @@ namespace Ludoria.Controllers
                         throw;
                     }
                 }
+                return RedirectToAction(nameof(Index));
             }
-            await PopulateViewBags();
             return View("EditGame", game);
         }
 
@@ -132,36 +131,26 @@ namespace Ludoria.Controllers
             return _context.Games.Any(e => e.Id == id);
         }
 
-        private async Task PopulateViewBags()
-        {
-            ViewBag.Categories = await _context.Categories.ToListAsync();
-            ViewBag.Platforms = await _context.Platforms.ToListAsync();
-        }
+        
 
         private async Task<string> SaveImage(IFormFile file)
         {
             if (file == null || file.Length == 0)
-            {
                 return null;
-            }
 
-            var saveDirectory = Path.Combine(_environment.WebRootPath, "admin", "assets", "images", "game");
-            if (!Directory.Exists(saveDirectory))
-            {
-                Directory.CreateDirectory(saveDirectory);
-            }
+            var fileName = Path.GetFileName(file.FileName);
+            var directoryPath = Path.Combine(_environment.WebRootPath, "admin", "assets", "images", "game", fileName);
+            var filePath = Path.Combine(directoryPath, fileName);
 
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-            var saveLocation = Path.Combine(saveDirectory, fileName);
-
-            using (var stream = new FileStream(saveLocation, FileMode.Create))
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            // Göreceli URL'i döndür
-            return $"/admin/assets/images/game/{fileName}";
+            var relativeUrl = $"/admin/assets/images/game/{fileName}";
+            return relativeUrl;
         }
+
 
     }
 }
