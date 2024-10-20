@@ -1,0 +1,54 @@
+﻿@model List<Ludoria.Models.Game>
+@{
+    ViewData["Title"] = "Oyun Blog";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+
+@section Slider {
+    @foreach (var game in Model)
+    {
+        <div class="slider-item">
+            <div class="slider-item-content">
+                <div class="post-thumb mb-4">
+                    <a href="@Url.Action("Index", "Blog", new { id = game.Id })">
+                        <img src="@Url.Content(string.IsNullOrEmpty(game.ImageURL) ? "~/blog/theme/images/game/lastofus.jpg" : (game.ImageURL.StartsWith("/") ? game.ImageURL : "/" + game.ImageURL))"
+                             alt="@game.Name"
+                             class="img-fluid"
+                             onerror="this.onerror=null; this.src='@Url.Content("~/blog/theme/images/game/lastofus.jpg")'; console.log('Resim yüklenemedi: ' + this.src);">
+                    </a>
+                </div>
+
+                <div class="slider-post-content">
+                    <span class="cat-name text-color font-sm font-extra text-uppercase letter-spacing">@game.Category?.Name</span>
+                    <h3 class="post-title mt-1"><a href="@Url.Action("Index", "Blog", new { id = game.Id })">@game.Name</a></h3>
+                    <span class="text-muted text-capitalize">@game.ReleaseDate.ToString("MMMM dd, yyyy")</span>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@* <!-- Ana içerik bölümü -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    @foreach (var game in Model)
+                    {
+                        <div class="col-lg-3 col-md-6">
+                            <article class="post-grid mb-5">
+                                <a class="post-thumb mb-4 d-block" href="@Url.Action("Index", "Blog", new { id = game.Id })">
+                                    <img src="@(string.IsNullOrEmpty(game.ImageURL) ? "~/blog/theme/images/game/lastofus.jpg" : game.ImageURL)" alt="@game.Name" class="img-fluid w-100">
+                                </a>
+                                <span class="cat-name text-color font-sm font-extra text-uppercase letter-spacing">@game.Category?.Name</span>
+                                <h3 class="post-title mt-1"><a href="@Url.Action("Index", "Blog", new { id = game.Id })">@game.Name</a></h3>
+                                <span class="text-muted letter-spacing text-uppercase font-sm">@game.ReleaseDate.ToString("MMMM dd, yyyy")</span>
+                            </article>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section> *@

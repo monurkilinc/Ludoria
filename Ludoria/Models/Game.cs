@@ -23,7 +23,7 @@ namespace Ludoria.Models
         [Range(0, 1000)]
         public decimal Price { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Resim zorunludur.")]
         public string? ImageURL { get; set; }
 
         [DataType(DataType.Date)]

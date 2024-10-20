@@ -24,13 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\BlogPost\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\adminpanel\.github\workflows\handle-new-issue-comment.yml" />
-    <None Include="wwwroot\adminpanel\.github\workflows\handle-new-issue.yml" />
-    <None Include="wwwroot\adminpanel\.github\workflows\issue-staler.yml" />
+    <None Include="wwwroot\admin\.DS_Store" />
   </ItemGroup>
 
 </Project>

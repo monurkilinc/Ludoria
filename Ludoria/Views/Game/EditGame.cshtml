@@ -1,0 +1,78 @@
+﻿@model Ludoria.Models.Game
+
+<form asp-controller="Game" asp-action="Edit" method="post">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Genre"></label>
+        <input asp-for="Genre" class="form-control" />
+        <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Developer"></label>
+        <input asp-for="Developer" class="form-control" />
+        <span asp-validation-for="Developer" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))">
+            <option value="">-- Select a Category --</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageURL">ImageURL</label>
+        <input asp-for="ImageURL" class="form-control" />
+        <span asp-validation-for="ImageURL" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="ReleaseDate">ReleaseDate</label>
+        <input asp-for="ReleaseDate" class="form-control" />
+        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="PlatformId">Platform</label>
+        <select asp-for="PlatformId" class="form-control" asp-items="@(new SelectList(ViewBag.Platforms, "Id", "Name"))">
+            <option value="">-- Select a Platform --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Guncelle</button>
+</form>
+<script>
+    function updateSelectColor(select) {
+        if (select.value === '') {
+            select.style.color = 'white';
+        } else {
+            select.style.color = 'white'; 
+        }
+    }
+
+    // Sayfa yüklendiğinde ilk kontrol
+    document.addEventListener('DOMContentLoaded', function() {
+        var selects = document.querySelectorAll('.form-control');
+        selects.forEach(function(select) {
+            updateSelectColor(select);
+        });
+    });
+</script>

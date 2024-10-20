@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Ludoria.Models.Game>
+@{
+    ViewData["Title"] = "Oyunlar";
+    var games = ViewBag.Games as List<Ludoria.Models.Game>;
+}
+<br />
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <a href="@Url.Action("Create", "Game")" class="btn btn-success float-right mb-3">Oyun Ekle</a>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Oyun Resmi</th>
+                            <th>Oyun Adı</th>
+                            <th>Açıklama</th>
+                            <th>Türü</th>
+                            <th>Geliştirici</th>
+                            <th>Fiyat</th>
+                            <th>Yayın Tarihi</th>
+                            <th>Platform</th>
+                            <th>Kategori</th>
+                            <th style="width: 210px;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var game in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(game.ImageURL))
+                                    {
+                                        <img src="@game.ImageURL" alt="@game.Name" style="width:100px; height:auto;" />
+                                    }
+                                    else
+                                    {
+                                        <span>Resim yok</span>
+                                    }
+                                </td>
+                                <td>@game.Name</td>
+                                <td>@(game.Description?.Length > 30 ? game.Description.Substring(0, 27) + "..." : game.Description)</td>
+                                <td>@game.Genre</td>
+                                <td>@game.Developer</td>
+                                <td>@game.Price.ToString("C")</td>
+                                <td>@game.ReleaseDate.ToShortDateString()</td>
+                                <td>@game.Platform?.Name</td>
+                                <td>@game.Category?.Name</td>
+                                <td class="action-buttons">
+                                    <a href="@Url.Action("Edit", "Game", new { id = game.Id })" src="/Game/EditGame" class="btn btn-primary btn-sm">Düzenle</a>
+                                    <form method="post" action="@Url.Action("Delete", "Game", new { id = game.Id })" onsubmit="return confirm('Bu oyunu silmek istediğinize emin misiniz?');" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete(gameId) {
+        if (confirm("Bu oyunu silmek istediğinize emin misiniz?")) {
+            fetch('/Game/Delete/' + gameId, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="__RequestVerificationToken"]').value,
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert('Oyun başarıyla silindi.');
+                    window.location.reload(); // Sayfayı yenile
+                } else {
+                    alert('Silme işlemi başarısız.');
+                }
+            }).catch(error => {
+                console.error('Hata:', error);
+            });
+        }
+    }
+</script>
