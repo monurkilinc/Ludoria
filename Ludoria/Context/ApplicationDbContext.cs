@@ -1,7 +1,6 @@
 ﻿using Ludoria.Entities;
 using Ludoria.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace Ludoria.Context
 {
@@ -17,9 +16,9 @@ namespace Ludoria.Context
                 .HasColumnType("decimal(18, 2)");
 
             modelBuilder.Entity<Game>()
-        .HasOne(g => g.Platform)
-        .WithMany(p => p.Games)
-        .HasForeignKey(g => g.PlatformId);
+                .HasOne(g => g.Platform)
+                .WithMany(p => p.Games)
+                .HasForeignKey(g => g.PlatformId);
 
             modelBuilder.Entity<Game>()
                 .HasOne(g => g.Category)

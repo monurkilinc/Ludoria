@@ -10,7 +10,7 @@
             <a href="@Url.Action("Create", "Game")" class="btn btn-success float-right mb-3">Oyun Ekle</a>
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Oyun Resmi</th>
@@ -32,7 +32,7 @@
                                 <td>
                                     @if (!string.IsNullOrEmpty(game.ImageURL))
                                     {
-                                        <img src="@Url.Content(game.ImageURL)" alt="@game.Name" class="game-thumbnail" />
+                                        <img src="@Url.Content(game.ImageURL)" alt="@game.Name" class="game-thumbnail"  />
                                     }
                                     else
                                     {

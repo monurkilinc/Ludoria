@@ -5,6 +5,11 @@
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
+        <label for="ImageURL" class="control-label">Oyun Resmi</label>
+        <input type="file" name="image" class="text-danger" required />
+    </div>
+
+    <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
@@ -34,12 +39,7 @@
             <option value="">-- Select a Category --</option>
         </select>
     </div>
-    <div class="form-group">
-        <label asp-for="ImageURL">ImageURL</label>
-        <input asp-for="ImageURL" class="form-control" />
-        <span asp-validation-for="ImageURL" class="text-danger"></span>
 
-    </div>
     <div class="form-group">
         <label asp-for="ReleaseDate">ReleaseDate</label>
         <input asp-for="ReleaseDate" class="form-control" />
@@ -61,18 +61,19 @@
     <button type="submit" class="btn btn-primary">Guncelle</button>
 </form>
 <script>
+    // Açılır menülerin renklerini günceller
     function updateSelectColor(select) {
         if (select.value === '') {
             select.style.color = 'white';
         } else {
-            select.style.color = 'white'; 
+            select.style.color = 'white';
         }
     }
 
-    // Sayfa yüklendiğinde ilk kontrol
-    document.addEventListener('DOMContentLoaded', function() {
+    // Sayfa yüklendiğinde select elementlerini kontrol edip renk güncellemesi yapar
+    document.addEventListener('DOMContentLoaded', function () {
         var selects = document.querySelectorAll('.form-control');
-        selects.forEach(function(select) {
+        selects.forEach(function (select) {
             updateSelectColor(select);
         });
     });

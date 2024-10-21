@@ -848,13 +848,14 @@ overlay search
 
 .slider-item-content {
   position: relative;
+  width:400px
 }
 
 .slider-post-content {
   position: absolute;
   bottom: 38px;
   padding: 20px;
-  background: #fff;
+  background: #f0f1f4;
   width: 90%;
   text-align: center;
   margin: 0 auto;
