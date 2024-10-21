@@ -22,7 +22,7 @@ Ludoria, oyun veritabanı ve yönetim sistemi olarak tasarlanmış bir web uygul
 
 Projenin çalıştırılabilmesi için aşağıdaki yazılımların sisteminizde kurulu olması gerekmektedir:
 
-- .NET 6.0 SDK veya daha yeni bir sürüm
+- .NET 7.0 SDK veya daha yeni bir sürüm
 - Visual Studio 2022 veya Visual Studio Code
 - SQL Server (LocalDB veya tam sürüm)
 
